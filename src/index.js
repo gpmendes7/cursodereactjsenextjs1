@@ -6,7 +6,7 @@ import { Home } from './templates/Home';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+    <Home numberToIncrement={10} />
   </React.StrictMode>,
   document.getElementById('root')
 );
