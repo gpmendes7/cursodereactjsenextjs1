@@ -8,5 +8,5 @@ ReactDOM.render(
   <React.StrictMode>
     <Home numberToIncrement={10} />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
