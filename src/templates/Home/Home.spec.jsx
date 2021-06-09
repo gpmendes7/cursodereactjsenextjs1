@@ -85,7 +85,7 @@ describe('<Home />', () => {
     userEvent.type(search, 'title1');
     expect(screen.getByRole('heading', { name: 'title1 1' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'title2 2' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: 'titl3 3' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'title3 3' })).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Search value: title1' })).toBeInTheDocument();
 
     userEvent.clear(search);
@@ -94,5 +94,21 @@ describe('<Home />', () => {
 
     userEvent.type(search, 'post does not exist');
     expect(screen.getByText('Não existem posts')).toBeInTheDocument();
+  });
+
+  it('should load more posts', async () => {
+    render(<Home />);
+    const noMorePosts = screen.getByText('Não existem posts');
+
+    // expect.assertions(3);
+
+    await waitForElementToBeRemoved(noMorePosts);
+
+    const button = screen.getByRole('button', { name: /load more posts/i });
+    expect(button).toBeInTheDocument();
+
+    userEvent.click(button);
+    expect(screen.queryByRole('heading', { name: 'title3 3' })).toBeInTheDocument();
+    expect(button).toBeDisabled();
   });
 });
